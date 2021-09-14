@@ -2,29 +2,22 @@
 
 using namespace std;
 
+int N;
+double a[100004];
+
 int main(void) {
 
-    int N;
+    ios::sync_with_stdio(0); cin.tie(0);
+
     cin >> N;
 
-    double arr[N+1];
-    double mul[N+1];
+    for(int i=1; i<=N; i++) cin >> a[i];
 
-    for(int i=1; i<=N; i++) cin >> arr[i];
-
-    mul[0] = 1;
-
-    for(int i=0; i<N; i++) mul[i+1] = mul[i] * arr[i];
-
-    double maxNum = arr[1];
-
-    for(int i=1; i<=N; i++) {
-        for(int j=0; j<i; j++) {
-            maxNum = max(maxNum, mul[i] / mul[j]);
-        }
+    for(int i=2; i<=N; i++) {
+        a[i]  = max(a[i], a[i-1]*a[i]);
     }
 
-    printf("%.3lf\n", maxNum);
+    printf("%.3lf", *max_element(a+1, a+N+1));
 
     return 0;
 }
